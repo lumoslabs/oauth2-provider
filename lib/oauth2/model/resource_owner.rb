@@ -10,14 +10,13 @@ module OAuth2
       end
 
       def grant_access!(client, options = {})
-        authorization = oauth2_authorizations.find_by_client_id(client.id) ||
-                        Model::Authorization.create(:owner => self, :client => client)
+        authorization = oauth2_authorizations.find_by_client_id(client.id) unless options[:force_new]
+        authorization ||= Model::Authorization.new(:owner => self, :client => client)
 
-        if scopes = options[:scopes]
-          scopes = authorization.scopes + scopes
-          authorization.update_attribute(:scope, scopes.entries.join(' '))
-        end
+        authorization.scope = (authorization.scopes + options[:scopes]).entries.join(' ') if options[:scopes]
+        authorization.expires_at = Time.now + options[:duration].to_i if options[:duration]
 
+        authorization.save
         authorization
       end
     end

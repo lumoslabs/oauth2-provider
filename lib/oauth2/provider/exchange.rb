@@ -196,23 +196,17 @@ module OAuth2
         validate_authorization
       end
 
-      def validate_authorization
-        unless @authorization
-          @error = INVALID_GRANT
-          @error_description = 'The access grant you supplied is invalid'
-        end
-
-        if @authorization and @authorization.expired?
-          @error = INVALID_GRANT
-          @error_description = 'The access grant you supplied is invalid'
-        end
-      end
-
       def validate_client_credentials
-        puts 'validate_client_credentials!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-        @authorization = OAuth2::Model::Provider.instance.grant_access!(@client, :scopes => [@scope])
-        puts @authorization.inspect
+        @authorization = Provider.handle_client_credential(@client)
+        validate_authorization
       end
+
+      def validate_authorization
+        return if @authorization and !@authorization.expired?
+        @error = INVALID_GRANT
+        @error_description = 'The access grant you supplied is invalid'
+      end
+
     end
 
     class Assertion

@@ -73,6 +73,7 @@ module OAuth2
       @password_handler   = nil
       @assertion_handlers = {}
       @assertion_filters  = []
+      @client_credentials_handler = nil
     end
 
     clear_assertion_handlers!
@@ -98,6 +99,15 @@ module OAuth2
       return nil unless @assertion_filters.all? { |f| f.call(client) }
       handler = @assertion_handlers[assertion.type]
       handler ? handler.call(client, assertion.value) : nil
+    end
+
+    def self.handle_client_credentials(&block)
+      @client_credentials_handler = block
+    end
+
+    def self.handle_client_credential(client)
+      return nil unless @client_credentials_handler
+      @client_credentials_handler.call(client)
     end
 
     def self.parse(*args)

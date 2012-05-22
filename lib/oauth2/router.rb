@@ -42,8 +42,6 @@ module OAuth2
         params  = request.params
         header  = request.env['HTTP_AUTHORIZATION']
 
-        puts params.inspect
-
         header && header =~ /^OAuth\s+/ ?
             header.gsub(/^OAuth\s+/, '') :
             params[OAUTH_TOKEN]
