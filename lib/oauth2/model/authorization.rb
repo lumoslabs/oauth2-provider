@@ -46,8 +46,8 @@ module OAuth2
       end
 
       def self.for_response_type(response_type, attributes = {})
-        instance = self.for(attributes[:owner], attributes[:client]) ||
-                   new(:owner => attributes[:owner], :client => attributes[:client])
+        instance = attributes[:force_new] ? nil : self.for(attributes[:owner], attributes[:client])
+        instance ||= new(:owner => attributes[:owner], :client => attributes[:client])
 
         case response_type
           when CODE

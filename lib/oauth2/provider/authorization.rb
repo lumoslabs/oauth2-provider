@@ -5,7 +5,7 @@ module OAuth2
       attr_reader :owner, :client,
                   :code, :access_token,
                   :expires_in, :refresh_token,
-                  :error, :error_description
+                  :error, :error_description, :model
 
       REQUIRED_PARAMS = [RESPONSE_TYPE, CLIENT_ID, REDIRECT_URI]
       VALID_PARAMS    = REQUIRED_PARAMS + [SCOPE, STATE]
@@ -23,7 +23,7 @@ module OAuth2
 
         return unless @owner and not @error
 
-        @model = Model::Authorization.for(@owner, @client)
+        @model = Model::Authorization.for(@owner, @client) unless @params[:force_new]
         return unless @model and @model.in_scope?(scopes) and not @model.expired?
 
         @authorized = true
@@ -51,6 +51,7 @@ module OAuth2
           :owner    => @owner,
           :client   => @client,
           :scope    => @scope,
+          :force_new => options[:force_new] || @params[:force_new],
           :duration => options[:duration])
 
         @code          = @model.code
