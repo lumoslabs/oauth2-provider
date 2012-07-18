@@ -31,10 +31,12 @@ module OAuth2
     private
 
       def check_format_of_redirect_uri
-        uri = URI.parse(redirect_uri)
-        errors.add(:redirect_uri, 'must be an absolute URI') unless uri.absolute?
+        redirect_uri.split("\n").each do |ruri|
+          uri = URI.parse(ruri)
+          errors.add(:redirect_uri, 'must contain only absolute URIs') unless uri.absolute?
+        end
       rescue
-        errors.add(:redirect_uri, 'must be a URI')
+        errors.add(:redirect_uri, 'must contain only URIs')
       end
 
       def generate_credentials
