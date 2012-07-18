@@ -84,10 +84,13 @@ module OAuth2
 
       def redirect_uri
         return nil unless @client
+
+        client_redirect_uri = @client.redirect_uri.split("\n").first.strip
         # if it's passed validate! then @params[REDIRECT_URI] is safe
-        base_redirect_uri = @params[REDIRECT_URI]
+        base_redirect_uri = @params[REDIRECT_URI] || client_redirect_uri
 
         if not valid?
+          base_redirect_uri = client_redirect_uri
           query = to_query_string(ERROR, ERROR_DESCRIPTION, STATE)
           "#{ base_redirect_uri }?#{ query }"
 
@@ -169,7 +172,7 @@ module OAuth2
           @error_description = "Unknown client ID #{@params[CLIENT_ID]}"
         end
 
-        if @client and @client.redirect_uri and !@client.redirect_uri.split("\n").include?(@params[REDIRECT_URI])
+        if @client and @client.redirect_uri and !@client.redirect_uri.split("\n").map(&:strip).include?(@params[REDIRECT_URI])
           @error = REDIRECT_MISMATCH
           @error_description = "Parameter redirect_uri does not match registered URI"
         end
