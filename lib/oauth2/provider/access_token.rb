@@ -50,7 +50,7 @@ module OAuth2
       end
 
       def validate!
-        return @error = INVALID_REQUEST                 unless @access_token
+        return @error = ''                 unless @access_token
         return @error = INVALID_TOKEN      unless @authorization
         return @error = EXPIRED_TOKEN      if @authorization.expired?
         return @error = INSUFFICIENT_SCOPE unless @authorization.in_scope?(@scopes)
