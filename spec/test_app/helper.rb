@@ -16,7 +16,7 @@ module TestApp
       def start(port)
         handler = Rack::Handler.get('thin')
         Thread.new do
-          handler.run(new, :Port => port) { |server| @server = server }
+          handler.run(new, Port: port) { |server| @server = server }
         end
         sleep 0.1 until @server
       end
