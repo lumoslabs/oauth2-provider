@@ -1,0 +1,11 @@
+sudo: false
+notifications:
+  email: false
+language: ruby
+rvm:
+  - 2.1.6
+env:
+  - RAILS_VERSION=4.0.0
+  - RAILS_VERSION=3.2.21
+script:
+  - bundle exec rspec --color
