@@ -34,7 +34,7 @@ module OAuth2
         add_index :oauth2_authorizations, [:client_id, :code]
         add_index :oauth2_authorizations, [:access_token_hash]
         add_index :oauth2_authorizations, [:client_id, :access_token_hash]
-        add_index :oauth2_authorizations, [:client_id, :refresh_token_hash]
+        add_index :oauth2_authorizations, [:client_id, :refresh_token_hash], name: 'index_on_client_id_and_refresh_token_hash'
         add_index :oauth2_authorizations, [:oauth2_resource_owner_id]
       end
 
@@ -47,4 +47,3 @@ module OAuth2
 
   end
 end
-

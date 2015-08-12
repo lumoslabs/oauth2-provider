@@ -27,21 +27,21 @@ module OAuth2
 
       def self.create_code(client)
         OAuth2.generate_id do |code|
-          client.authorizations.count(:conditions => {:code => code}).zero?
+          client.authorizations.where(code: code).count.zero?
         end
       end
 
       def self.create_access_token
         OAuth2.generate_id do |token|
           hash = OAuth2.hashify(token)
-          count(:conditions => {:access_token_hash => hash}).zero?
+          where(access_token_hash: hash).count.zero?
         end
       end
 
       def self.create_refresh_token(client)
         OAuth2.generate_id do |refresh_token|
           hash = OAuth2.hashify(refresh_token)
-          client.authorizations.count(:conditions => {:refresh_token_hash => hash}).zero?
+          client.authorizations.where(refresh_token_hash: hash).count.zero?
         end
       end
 
@@ -117,4 +117,3 @@ module OAuth2
 
   end
 end
-
