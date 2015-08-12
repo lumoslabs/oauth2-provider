@@ -20,7 +20,7 @@ module OAuth2
 
       def self.create_client_id
         OAuth2.generate_id do |client_id|
-          count(:conditions => {:client_id => client_id}).zero?
+          where(client_id: client_id).count.zero?
         end
       end
 
@@ -47,4 +47,3 @@ module OAuth2
 
   end
 end
-
