@@ -13,6 +13,7 @@ spec = Gem::Specification.new do |s|
   s.require_paths     = ["lib"]
 
   s.add_dependency('activerecord', ENV['RAILS_VERSION'] || '>= 3.2.0', '< 5')
+  s.add_dependency('protected_attributes', '~>1.0.0')
   s.add_dependency("bcrypt-ruby")
   s.add_dependency("json")
   s.add_dependency("rack")
