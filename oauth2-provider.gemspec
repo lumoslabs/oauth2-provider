@@ -14,7 +14,7 @@ spec = Gem::Specification.new do |s|
 
   s.add_dependency('activerecord', ENV['RAILS_VERSION'] || '~> 4.0')
   s.add_dependency('protected_attributes', '~>1.0.0')
-  s.add_dependency('bcrypt')
+  s.add_dependency('bcrypt', '~> 3.1')
   s.add_dependency('json')
   s.add_dependency('rack')
 
