@@ -5,8 +5,6 @@ module OAuth2
       include ResourceOwner
       self.table_name = :oauth2_providers
 
-      attr_accessible :name
-
       def self.instance
         first || create(:name => 'Provider')
       end
