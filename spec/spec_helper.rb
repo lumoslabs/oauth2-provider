@@ -7,7 +7,6 @@ require 'bundler/setup'
 
 require 'active_record'
 require 'oauth2/provider'
-require 'protected_attributes' if ActiveRecord::VERSION::MAJOR > 3
 
 ActiveRecord::Base.establish_connection(:adapter  => 'sqlite3', database: 'test.sqlite3')
 
