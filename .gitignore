@@ -1,5 +1,6 @@
 *.sqlite3
 *.db
+.rspec
 Gemfile.lock
 pkg
 rdoc
