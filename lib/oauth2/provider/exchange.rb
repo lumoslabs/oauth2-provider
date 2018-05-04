@@ -2,7 +2,7 @@ module OAuth2
   class Provider
 
     class Exchange
-      attr_reader :client, :error, :error_description
+      attr_reader :client, :error, :error_description, :authorization
 
       REQUIRED_PARAMS    = [CLIENT_ID, CLIENT_SECRET, GRANT_TYPE]
       VALID_GRANT_TYPES  = [AUTHORIZATION_CODE, PASSWORD, ASSERTION, REFRESH_TOKEN, CLIENT_CREDENTIALS]
