@@ -1,7 +1,7 @@
 module OAuth2
   module Model
 
-    ActiveRecordMigrationKlass = if ['5.0', '5.1', '5.2'].include?(ENV['RAILS_VERSION'])
+    ActiveRecordMigrationKlass = ActiveRecord::VERSION::MAJOR >= 5
       ActiveRecord::Migration[ENV['RAILS_VERSION'].to_f]
     else
       ActiveRecord::Migration
