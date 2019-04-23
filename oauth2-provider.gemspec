@@ -18,7 +18,6 @@ spec = Gem::Specification.new do |s|
   s.add_dependency 'rack'
 
   s.add_development_dependency 'rspec', '~> 3.3.0'
-  s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'sinatra', '>= 1.3.0'
   s.add_development_dependency 'thin'
   s.add_development_dependency 'factory_girl', '~> 2.0'
