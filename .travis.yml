@@ -8,5 +8,6 @@ env:
   - RAILS_VERSION=4.2
   - RAILS_VERSION=5.0
   - RAILS_VERSION=5.1
+  - RAILS_VERSION=5.2
 script:
   - bundle exec rspec --color

@@ -1,7 +1,13 @@
 module OAuth2
   module Model
 
-    class Schema < ActiveRecord::Migration
+    ActiveRecordMigrationKlass = if ['5.0', '5.1', '5.2'].include?(ENV['RAILS_VERSION'])
+      ActiveRecord::Migration[ENV['RAILS_VERSION'].to_f]
+    else
+      ActiveRecord::Migration
+    end
+
+    class Schema < ActiveRecordMigrationKlass
       def self.up
         create_table :oauth2_clients, :force => true do |t|
           t.timestamps
